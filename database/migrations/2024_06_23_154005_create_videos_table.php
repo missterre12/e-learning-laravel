@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id()->primary();
-            $table->unsignedBigInteger('course_id');
+            $table->foreignId('course_id')->references('id')->on('courses');
             $table->string('judul');
             $table->boolean('is_trailer');
             $table->string('link_youtube');
@@ -21,8 +21,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
-
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

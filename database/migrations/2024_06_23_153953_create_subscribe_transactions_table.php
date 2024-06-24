@@ -13,20 +13,16 @@ return new class extends Migration
     {
         Schema::create('subscribe_transactions', function (Blueprint $table) {
             $table->id()->primary();
-            $table->unsignedBigInteger('course_student_id');
-            $table->unsignedBigInteger('student_id');
-            $table->string('amount');
+            $table->foreignId('course_student_id')->references('id')->on('course_students');
+            $table->foreignId('student_id')->references('student_id')->on('course_students');;
+            $table->string('total_amount');
             $table->enum('is_paid', ['Unpaid', 'Paid', 'Cancelled']);
-            $table->string('amount');
             $table->date('subscription_start_date');
             $table->date('subscription_end_date');
             $table->timestamps();
             $table->softDeletes();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
-
-            $table->foreign('course_student_id')->references('id')->on('course_students')->onDelete('cascade');
-            $table->foreign('student_id')->references('student_id')->on('course_students')->onDelete('cascade');
         });
     }
 

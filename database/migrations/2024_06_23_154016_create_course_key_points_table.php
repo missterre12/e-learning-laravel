@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('course_key_points', function (Blueprint $table) {
             $table->id()->primary();
-            $table->unsignedBigInteger('course_id');
+            $table->foreignId('course_id')->references('student_id')->on('course_students');
             $table->string('name');
             $table->timestamps();
-
-            $table->foreign('course_id')->references('student_id')->on('course_students')->onDelete('cascade');
         });
     }
 
